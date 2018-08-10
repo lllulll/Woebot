@@ -14,7 +14,7 @@ export class EditEntryComponent implements OnInit {
 
   constructor(
     public lessonService: LessonService,
-    public dialogRef: MatDialogRef<EditEntryComponent>
+    public dialogRef: MatDialogRef<EditEntryComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
