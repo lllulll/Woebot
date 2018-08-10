@@ -1,0 +1,66 @@
+<div mat-dialog-content>
+  <div class="col-12">
+    <div class="entry-id" *ngIf="!data.previousEntry">
+      <span>{{ question.id }}</span>
+    </div>
+
+    <mat-form-field class="entry" *ngIf="!data.previousEntry">
+      <textarea matInput placeholder="New entry" [(ngModel)]="question.text"></textarea>
+    </mat-form-field>
+
+    <h3>Replies</h3>
+
+    <div *ngIf="question.replies.length">
+      <div class="row" *ngFor="let reply of question.replies; let i = index">
+        <mat-form-field class="col-2">
+          <input type="text" matInput placeholder="Reply" [(ngModel)]="question.replies[i]">
+        </mat-form-field>
+
+        <mat-form-field class="col-7">
+          <mat-select placeholder="Next entry" [(ngModel)]="question.routes[i]">
+            <mat-option *ngFor="let question of lessonService.lesson.questions" [value]="question.id">
+              {{ question.text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-2">
+          <mat-select placeholder="Type" [(ngModel)]="question.payloads[i]">
+            <mat-option [value]=""></mat-option>
+            <mat-option [value]="bye">Bye</mat-option>
+            <mat-option [value]="yes">Yes</mat-option>
+            <mat-option [value]="no">No</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <mat-form-field class="col-2">
+        <input type="text" matInput placeholder="Reply" [(ngModel)]="newReply" [value]="newReply">
+      </mat-form-field>
+
+      <mat-form-field class="col-7">
+        <mat-select placeholder="Next entry" [(ngModel)]="newRoute">
+          <mat-option *ngFor="let question of lessonService.lesson.questions" [value]="question.id">
+            {{ question.text }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-2">
+        <mat-select placeholder="Type" [(ngModel)]="newPayload">
+          <mat-option *ngFor="let payload of payloadList" [value]="payload">
+            {{ payload }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button class="empty-solid col-1" (click)="addReply()" *ngIf="!data.previousEntry">Add</button>
+    </div>
+
+    <div class="row finale-button">
+      <button class="main finale-button" (click)="saveEntry()">Save</button>
+    </div>
+
+  </div>

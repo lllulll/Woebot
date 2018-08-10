@@ -1,0 +1,76 @@
+<!-- Lesson title -->
+<div class="container-fluid" *ngIf="lessonService.lesson">
+  <div class="row">
+    <div class="container">
+      <h1 *ngIf="!isLessonModify">Lesson: {{ lessonService.lesson.name }} <button class="empty-solid" (click)="isLessonModify = true"><i class="fas fa-pencil-alt"></i></button></h1>
+
+      <h1 class="modify-lesson col-11" *ngIf="isLessonModify">
+        <mat-form-field>
+          <input matInput [(ngModel)]="lessonService.lesson.name" placeholder="Lesson name">
+        </mat-form-field>
+
+        <button class="empty-solid" (click)="isLessonModify = false"><i class="fas fa-save"></i></button>
+      </h1>
+    </div>
+  </div>
+</div>
+<!-- EOF Lesson title -->
+<div class="container">
+  <!-- Let's imagine there's a lessons list before accessing this page -->
+  <button class="back col-md-3 col-sm-12">
+    <i class="fas fa-arrow-left"></i> Back to lessons list
+  </button>
+
+  <div class="buttons">
+    <button class="main col-md-3 col-sm-12" (click)="newEntry()">
+      <i class="fas fa-plus-circle"></i> Add a new entry
+    </button>
+
+    <mat-form-field class="col-md-9 col-sm-12">
+      <input matInput name="search" placeholder="Search">
+      <span matSuffix><i class="fas fa-search"></i></span>
+    </mat-form-field>
+  </div>
+
+  <div class="row" id="entries-list" *ngIf="lessonService.lesson">
+
+    <!-- Entry -->
+    <div class="col-md-4 col-sm-12" *ngFor="let question of lessonService.lesson.questions">
+      <div class="entry col-12" id="{{ question.id }}" [ngClass]="{'selected': selectedEntry === question.id}">
+        <div class="row">
+          <!-- Entry content -->
+          <div class="entry-header col-12">
+            <div class="entry-id">
+              <span>{{ question.id }}</span>
+            </div>
+            <p>{{ question.text }}</p>
+          </div>
+
+          <!-- Entry possible answers -->
+          <div class="entry-body col-12" *ngIf="question.tag === 'bye'">
+            <button class="empty-solid" (click)="scrollTo(question.routes[0])">Next conversation</button>
+          </div>
+
+          <div class="entry-body col-12" *ngIf="question.tag !== 'bye'">
+            <button class="back" *ngFor="let reply of question.replies; let i = index" (click)="scrollTo(question.routes[i])">{{ reply }}</button>
+          </div>
+
+          <!-- Entry controls -->
+          <div class="entry-manage col-12">
+            <div class="row">
+
+              <span class="manage-button" (click)="openNew(question)">
+                <i class="fas fa-comments"></i> Add new answer
+              </span>
+
+              <span class="manage-button" (click)="editEntry(question)">
+                <i class="fas fa-pencil-alt"></i> Modify
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- EOF Entry -->
+  </div>
+</div>
