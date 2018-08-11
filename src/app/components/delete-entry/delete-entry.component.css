@@ -1,0 +1,10 @@
+.finale-button {
+  width: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.finale-button > button {
+  display: inline-block;
+  margin: 5px;
+}

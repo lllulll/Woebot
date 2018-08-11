@@ -32,6 +32,8 @@
             <mat-option [value]="no">No</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <button class="empty-solid col-1" (click)="deleteReply(i)">X</button>
       </div>
     </div>
 
@@ -59,8 +61,11 @@
       <button class="empty-solid col-1" (click)="addReply()" *ngIf="!data.previousEntry">Add</button>
     </div>
 
-    <div class="row finale-button">
-      <button class="main finale-button" (click)="saveEntry()">Save</button>
+    <div class="row">
+      <div class="finale-button">
+        <button class="main finale-button" (click)="saveEntry()">Save</button>
+        <button class="empty-solid finale-button" (click)="openDelete(question.id)">Delete</button>
+      </div>
     </div>
 
   </div>

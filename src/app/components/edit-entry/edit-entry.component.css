@@ -25,12 +25,12 @@
 }
 
 .finale-button {
-  position: relative;
-  height: 50px;
+  width: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .finale-button > button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  display: inline-block;
+  margin: 5px;
 }

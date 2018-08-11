@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
+import { DeleteEntryComponent } from '../../components/delete-entry/delete-entry.component'; // import the modal to delete an entry
+
 import { LessonService } from '../../services/lesson.service'; //import the functions related to one lesson
 
 import { Question } from '../../models/question'; 
@@ -14,6 +16,7 @@ export class EditEntryComponent implements OnInit {
 
   constructor(
     public lessonService: LessonService,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<EditEntryComponent>,
     @Inject(MAT_DIALOG_DATA) public data
   ) { }
@@ -83,6 +86,15 @@ export class EditEntryComponent implements OnInit {
     }  
   }
 
+  deleteReply(index) {
+    if (this.question.tag === 'bye' && this.question.payloads[index] === 'bye') {
+      this.question.tag = '';
+    }
+    this.question.replies.splice(index, 1);
+    this.question.routes.splice(index, 1);
+    this.question.payloads.splice(index, 1);
+  }
+
   // Save modal window
   saveEntry() {
     // Add a reply to an entry
@@ -112,6 +124,21 @@ export class EditEntryComponent implements OnInit {
       this.lessonService.lesson.questions.push(this.question);
       this.dialogRef.close(this.question.id);
     }
+  }
+
+  // Open the modal to delete this entry
+  openDelete(id) {
+    this.dialogRef.close();
+
+    const dialogRef = this.dialog.open(DeleteEntryComponent, {
+      data: {
+        id: id
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
   }
 
 }

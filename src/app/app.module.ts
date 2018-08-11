@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 // Import of the services
 import { LessonService } from './services/lesson.service';
 import { EditEntryComponent } from './components/edit-entry/edit-entry.component';
+import { DeleteEntryComponent } from './components/delete-entry/delete-entry.component';
 
 @NgModule({
   exports: [
@@ -41,7 +42,8 @@ export class AngularMaterialModule { }
     AppComponent,
     NavbarComponent,
     LessonsComponent,
-    EditEntryComponent
+    EditEntryComponent,
+    DeleteEntryComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +56,6 @@ export class AngularMaterialModule { }
   ],
   providers: [LessonService],
   bootstrap: [AppComponent],
-  entryComponents: [EditEntryComponent]
+  entryComponents: [EditEntryComponent, DeleteEntryComponent]
 })
 export class AppModule { }
